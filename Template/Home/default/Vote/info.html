@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="description" content="">
+<meta name="keywords" content="">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+<meta name="renderer" content="webkit">
+<meta http-equiv="Cache-Control" content="no-siteapp"/>
+<title></title>
+  <script style="text/javascript" src="__PUBLIC__/Home/js/jquery-2.2.2.min.js"></script>
+  <script style="text/javascript" src="__PUBLIC__/Home/js/common.js"></script>
+  <script style="text/javascript" src="__PUBLIC__/static/layer/layer.js"></script>
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/20161109css.css"/>
+</head>
+<body>
+<div class="text">
+	<a class="back" href="{:U('Vote/index')}"></a>
+	<h2>{$info.title}</h2>
+	{$info.content}
+	<div class="time">{$info.s_time}</div>
+</div>
+
+<if condition="$info['is_show'] eq 1">
+	<div class="n_btn">
+	    <input  no="status" type="hidden" value="-1">
+	    <input  no="id" type="hidden" value="{$info.id}"> <!-- 不参与 -->
+
+	    <input  yes="status" type="hidden" value="1">
+	    <input  yes="id" type="hidden" value="{$info.id}"> <!-- 参与 -->
+		<span class="btn_no fl" poster="no" action="{:U('Vote/doVote')}">不参加</span>
+		<span class="btn_yes fr" poster="yes" action="{:U('Vote/doVote')}">参加</span>
+	</div>
+</if>
+
+</body>
+</html>

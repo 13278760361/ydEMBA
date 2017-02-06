@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="description" content="">
+<meta name="keywords" content="">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+<meta name="renderer" content="webkit">
+<meta http-equiv="Cache-Control" content="no-siteapp"/>
+<title></title>
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/20161109css.css"/>
+    <script style="text/javascript" src="__PUBLIC__/Home/js/jquery-2.2.2.min.js"></script>
+    <script style="text/javascript" src="__PUBLIC__/Home/js/common.js"></script>
+    <script style="text/javascript" src="__PUBLIC__/static/layer/layer.js"></script>
+</head>
+<body pages start="2" success="returnfunc"  action="{:U('Msg/ajaxMsg')}">
+<div class="tab">
+	<a href="{:U('Msg/index')}" class="active">消息</a>
+	<a href="{:U('Vote/index')}">通知</a>
+</div>
+<div class="m_box">
+   <volist name="lists" id="vo">
+	<a class="m_item <if condition="$vo['status'] eq 0 ">unread  </if>" href="{:U('Msg/info',array('id'=>$vo['id']))}">
+		<h5>{$vo.title|msubstr=0,12,'utf-8',true}</h5>
+		<p>{$vo.intro|msubstr=0,20,'utf-8',true}</p> 
+	</a>
+   </volist>
+	<!-- <a class="m_item" href="message-info.html">
+		<h5>泰国国际学校考察团范文本校</h5>
+		<p>16年11月24日上午，泰国国际学校考察团一行五人到昆明市旅游...</p>
+	</a> -->
+</div>
+</body>
+</html>
+<script>
+ function returnfunc(data){
+        var html = '';
+              for (key in data){
+		              	if (data[key].status == 0) {
+		                html +="<a class='m_item unread' href='/index.php?s=/Home/Msg/info/id/"+data[key].id+"'><h5>"+data[key].title+"</h5><p>"+data[key].intro+"</p></a>";
+		          
+						}else{
+		    			 html +="<a class='m_item' href='/index.php?s=/Home/Msg/info/id/"+data[key].id+"'><h5>"+data[key].title+"</h5><p>"+data[key].intro+"</p></a>";	
+						}
+
+              }
+       
+         $(".m_box").append(html);
+    }	
+</script>

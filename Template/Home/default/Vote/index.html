@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="description" content="">
+<meta name="keywords" content="">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+<meta name="renderer" content="webkit">
+<meta http-equiv="Cache-Control" content="no-siteapp"/>
+<title></title>
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/20161109css.css"/>
+    <script style="text/javascript" src="__PUBLIC__/Home/js/jquery-2.2.2.min.js"></script>
+    <script style="text/javascript" src="__PUBLIC__/Home/js/common.js"></script>
+    <script style="text/javascript" src="__PUBLIC__/static/layer/layer.js"></script>
+</head>
+<body pages start="2" success="returnfunc"  action="{:U('Vote/ajaxVote')}">
+<div class="tab">
+	<a href="{:U('Msg/index')}">消息</a>
+	<a href="{:U('Vote/index')}" class="active">通知</a>
+</div>
+<div class="n_box">
+
+<volist name="lists" id="vo">
+	<a class="n_item" href="{:U('Vote/info',array('id'=>$vo['id'],'status'=>$vo['status']))}">
+		<h5>{$vo.title|msubstr=0,12,'utf-8',true}</h5>
+		<p>{$vo.intro|msubstr=0,20,'utf-8',true}</p>
+		<div class="state <if condition="$vo['status'] eq -1">red <elseif condition="$vo['status'] eq 1"/>green<else/></if>"><if condition="$vo['status'] eq -1">不参加<elseif condition="$vo['status'] eq 1"/>参加<else/>新消息</if></div>
+	</a>
+
+</volist>	
+<!-- 	<a class="n_item" href="notice-info.html">
+		<h5>讲座通知</h5>
+		<p>16年11月24日上午，泰国国际学校考察团一行五人到昆明市旅游...</p>
+		<div class="state">未选</div>
+	</a>
+	<a class="n_item" href="notice-info.html">
+		<h5>讲座通知</h5>
+		<p>16年11月24日上午，泰国国际学校考察团一行五人到昆明市旅游...</p>
+		<div class="state">未选</div>
+	</a>
+	<a class="n_item" href="notice-info.html">
+		<h5>讲座通知</h5>
+		<p>16年11月24日上午，泰国国际学校考察团一行五人到昆明市旅游...</p>
+		<div class="state">未选</div>
+	</a> -->
+</div>
+</body>
+</html>
+<script>
+ function returnfunc(data){
+        var html = '';
+              for (key in data){
+		              	if (data[key].status == 0) {
+		                html +="<a class='n_item' href='/index.php?s=/Home/Vote/info/id/"+data[key].id+"/status/"+data[key].status+"'><h5>"+data[key].title+"</h5><p>"+data[key].intro+"</p><div class='state'>新消息</div></a>";
+		          
+						}else if( data[key].status == 1 ){
+		    			 html +="<a class='n_item' href='/index.php?s=/Home/Vote/info/id/"+data[key].id+"/status/"+data[key].status+"'><h5>"+data[key].title+"</h5><p>"+data[key].intro+"</p><div class='state green'>参加</div></a>";	
+						}else if( data[key].status == -1 ){
+						  html +="<a class='n_item' href='/index.php?s=/Home/Vote/info/id/"+data[key].id+"/status/"+data[key].status+"'><h5>"+data[key].title+"</h5><p>"+data[key].intro+"</p><div class='state red'>不参加</div></a>";			
+						}
+
+              }
+       
+         $(".n_box").append(html);
+    }	
+</script>
